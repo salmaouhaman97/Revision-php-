@@ -1,0 +1,97 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <title>Exercices PHP</title>
+</head>
+<body>
+    <h1>Exercices PHP</h1>
+    
+    <!-- Exercice 1: Affichage du salaire moyen -->
+    <h2>Salaire moyen des employés</h2>
+    <p>Le salaire moyen des employés est : <?= $salaireMoyen ?> €.</p>
+
+    <!-- Exercice 2: Formulaire de recherche d'employé -->
+    <h2>Recherche d'un employé</h2>
+    <form method="post">
+        <label for="nom">Nom de l'employé :</label>
+        <input type="text" id="nom" name="nom" required>
+        <button type="submit">Rechercher</button>
+    </form>
+
+    <?php if ($resultat): ?>
+        <h3>Résultat :</h3>
+        <p><strong>Nom :</strong> <?= htmlspecialchars($resultat['nom']) ?></p>
+        <p><strong>Poste :</strong> <?= htmlspecialchars($resultat['poste']) ?></p>
+        <p><strong>Salaire :</strong> <?= htmlspecialchars($resultat['salaire']) ?> €</p>
+    <?php elseif (isset($_POST['nom'])): ?>
+        <p>Aucun employé trouvé.</p>
+    <?php endif; ?>
+
+    <!-- Exercice 3: Formulaire de connexion -->
+    <h2>Connexion</h2>
+    <form method="post">
+        <label for="email">Email :</label>
+        <input type="email" id="email" name="email" required>
+        <br>
+        <label for="mot_de_passe">Mot de passe :</label>
+        <input type="password" id="mot_de_passe" name="mot_de_passe" required>
+        <br>
+        <button type="submit">Se connecter</button>
+    </form>
+
+    <?php if ($message): ?>
+        <p><?= htmlspecialchars($message) ?></p>
+    <?php endif; ?>
+
+    <!-- Exercice 4: Affichage du panier -->
+    <h2>Votre Panier</h2>
+    <ul>
+        <?php foreach ($panier as $produit): ?>
+            <li><?= $produit['nom'] ?> - Quantité : <?= $produit['quantite'] ?> - Prix : <?= $produit['prix'] ?> €</li>
+        <?php endforeach; ?>
+    </ul>
+    <p><strong>Total :</strong> <?= $total ?> €</p>
+
+    <!-- Exercice 5: Formulaire d'ajout de commentaire -->
+    <h2>Ajouter un Commentaire</h2>
+    <form method="post">
+        <label for="commentaire">Commentaire :</label>
+        <textarea id="commentaire" name="commentaire" required></textarea>
+        <br>
+        <button type="submit">Ajouter</button>
+    </form>
+
+    <h3>Commentaires :</h3>
+    <ul>
+        <?php foreach ($commentaires as $commentaire): ?>
+            <li><?= htmlspecialchars($commentaire) ?></li>
+        <?php endforeach; ?>
+    </ul>
+
+    <!-- Exercice 6: Importer un fichier CSV -->
+    <h2>Importer un fichier CSV</h2>
+    <form method="post" enctype="multipart/form-data">
+        <input type="file" name="fichier_csv" accept=".csv" required>
+        <button type="submit">Importer</button>
+    </form>
+
+    <?php if (!empty($donnees)): ?>
+        <h3>Données du fichier CSV :</h3>
+        <table border="1">
+            <tr>
+                <?php foreach ($donnees[0] as $colonne): ?>
+                    <th><?= htmlspecialchars($colonne) ?></th>
+                <?php endforeach; ?>
+            </tr>
+            <?php foreach ($donnees as $ligne): ?>
+                <tr>
+                    <?php foreach ($ligne as $cellule): ?>
+                        <td><?= htmlspecialchars($cellule) ?></td>
+                    <?php endforeach; ?>
+                </tr>
+            <?php endforeach; ?>
+        </table>
+    <?php endif; ?>
+</body>
+</html>
